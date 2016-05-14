@@ -3,6 +3,7 @@ import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
 import { Player } from './player';
+import { Balance } from './balance';
 import {AccountPosition} from "./accountPosition";
 
 @Injectable()
@@ -23,6 +24,12 @@ export class AccountPositionService {
     var toAdd = JSON.stringify({playerId: playerId, amount: amount, currency: currency});
     return this.http
       .post(this.playersUrl + playerId, toAdd, {headers: this.headers})
+      .map(res => res.json());
+  }
+
+  public getBalance = (playerId:number):Observable<Balance> => {
+    return this.http
+      .get(this.playersUrl + playerId + '/balance')
       .map(res => res.json());
   }
 

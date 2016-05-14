@@ -3,19 +3,24 @@
     <div class="col-lg-10 col-lg-offset-1">
       <h1>Pokerstats</h1>
       <h3>The smart poker status manager!</h3>
-      <hr>
-      <p>List of all players:</p>
+    </div>
+  </div>
+  <div class="row mt centered">
+    <h4><a data-toggle="collapse" data-target="#playerList">List of all players</a></h4>
+    <div id="playerList" class="col-lg-10 col-lg-offset-1 collapse in">
       <table class="table table-hover">
         <thead>
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
+          <th class="money">Balance</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let player of players" (click)="showAccountPositions(player)">
           <td>{{ player.firstName }}</td>
           <td>{{ player.lastName }}</td>
+          <td class="money">{{ player.balance + ' ' + ((player.currency == null) ? '' : player.currency) }}</td>
         </tr>
         </tbody>
       </table>
@@ -27,32 +32,36 @@
         <button (click)="createPlayer(firstName.value, lastName.value)" class="btn btn-primary btn-lg">create</button>
       </form>
     </div>
+    <hr>
   </div><!-- /row -->
-  <hr>
   <div class="{{ (selectedPlayer == null) ? 'hide' : 'row mt centered' }}">
     <div class="col-lg-10 col-lg-offset-1">
-      <p>List of all account positions for {{ (selectedPlayer == null) ? 'No player selected' :
-        selectedPlayer.firstName + ' ' + selectedPlayer.lastName }}:</p>
+      <h4><a data-toggle="collapse" data-target="#accountPositionList">List of all account positions for {{
+        (selectedPlayer == null) ? 'No player selected' : selectedPlayer.firstName + ' ' + selectedPlayer.lastName
+        }}:</a></h4>
+    </div>
+    <div id="accountPositionList" class="col-lg-10 col-lg-offset-1 collapse in">
       <table class="table table-hover">
         <thead>
         <tr>
-          <th>Amount</th>
-          <th>Currency</th>
+          <th>Date</th>
+          <th class="money">Amount</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let accountPosition of accountPositions">
-          <td>{{ accountPosition.amount }}</td>
-          <td>{{ accountPosition.currency }}</td>
+          <td>{{ accountPosition.formattedDate }}</td>
+          <td class="money">{{ accountPosition.formattedAmount }}</td>
         </tr>
         </tbody>
       </table>
       <form class="form-inline" role="form">
         <div class="form-group">
-          <input type="text" class="form-control" #amount placeholder="amount">
-          <input type="text" class="form-control" #currency placeholder="currency">
+          <input type="text" class="form-control" #prefix placeholder="+">
+          <input type="text" class="form-control" #bigCurrency placeholder="CHF">
+          <input type="text" class="form-control" #smallCurrency placeholder="Rappen">
         </div>
-        <button (click)="createAccountPosition(amount.value, currency.value)"
+        <button (click)="createAccountPosition(prefix.value, bigCurrency.value, smallCurrency.value)"
                 class="btn btn-primary btn-lg">create
         </button>
       </form>

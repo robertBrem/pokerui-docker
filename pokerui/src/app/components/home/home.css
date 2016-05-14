@@ -2,6 +2,10 @@ td {
   text-align: left;
 }
 
+.money {
+  text-align: right;
+}
+
 .hide {
   display: none;
 }
