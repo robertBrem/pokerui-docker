@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
-import { Player } from './player';
-import { Balance } from './balance';
+import { Player } from './../player/player';
+import { Balance } from './../player/balance';
 import {AccountPosition} from "./accountPosition";
+import {TimeEntry} from "./timeentry";
+import {HistoryEntry} from "./historyentry";
 
 @Injectable()
 export class AccountPositionService {
@@ -36,6 +38,18 @@ export class AccountPositionService {
   public getAccountPositions = (playerId:number):Observable<AccountPosition[]> => {
     return this.http
       .get(this.playersUrl + playerId + '/accountpositions/')
+      .map(res => res.json());
+  }
+
+  public getAccountHistoryForPlayer = (playerId:number):Observable<TimeEntry[]> => {
+    return this.http
+      .get(this.playersUrl + playerId + '/accounthistory/' + '?summedUp=true')
+      .map(res => res.json());
+  }
+
+  public getAccountHistory = (timeUnit:string):Observable<HistoryEntry[]> => {
+    return this.http
+      .get(this.playersUrl + 'accounthistory/' + '?summedUp=true&timeUnit=' + timeUnit)
       .map(res => res.json());
   }
 

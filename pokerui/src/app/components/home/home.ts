@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Player} from './player';
-import {Balance} from './balance';
-import {AccountPosition} from './accountPosition';
-import {PlayerService} from './player-service';
-import {AccountPositionService} from './accountposition-service';
+
+import {Player} from './../player/player';
+import {Balance} from './../player/balance';
+import {AccountPosition} from './../accountPosition/accountPosition';
+import {PlayerService} from './../player/player-service';
+import {AccountPositionService} from './../accountPosition/accountposition-service';
 
 @Component({
   selector: 'home',
@@ -20,7 +21,7 @@ export class Home {
   private selectedPlayer:Player;
   private accountPositions:AccountPosition[];
 
-  constructor(private service:PlayerService, private accountPositionService:AccountPositionService) {
+  constructor(private playerService:PlayerService, private accountPositionService:AccountPositionService) {
   }
 
   ngOnInit() {
@@ -28,7 +29,7 @@ export class Home {
   }
 
   createPlayer(firstName:string, lastName:string) {
-    return this.service
+    return this.playerService
       .create(firstName, lastName)
       .subscribe((data:Player) => {
           let player:Player = data;
@@ -83,7 +84,7 @@ export class Home {
   }
 
   private getPlayers() {
-    this.service
+    this.playerService
       .getAll()
       .subscribe((data:Player[]) => {
           this.players = data;
