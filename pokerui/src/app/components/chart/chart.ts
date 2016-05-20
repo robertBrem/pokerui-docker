@@ -40,6 +40,14 @@ export class LineChartDemo {
   private redraw() {
     let labels = [];
     let datasets = [];
+    let colors:string[] = [];
+    colors.push('255, 150, 150');
+    colors.push('150, 255, 150');
+    colors.push('150, 150, 255');
+    colors.push('255, 255, 150');
+    colors.push('150, 255, 255');
+    colors.push('255, 150, 255');
+
     let key;
     for (key in this.history) {
       let player:HistoryEntry = this.history[key];
@@ -56,17 +64,17 @@ export class LineChartDemo {
         }
         labels.push(accountHistory.date);
       }
-      console.log(player.playerName);
-      console.log(playerData);
+
+      let currentColor = colors.pop();
 
       datasets.push({
         label: player.playerName,
-        fillColor: 'rgba(220,220,220,0.2)',
-        strokeColor: 'rgba(220,220,220,1)',
-        pointColor: 'rgba(220,220,220,1)',
+        fillColor: 'rgba(' + currentColor + ',0.2)',
+        strokeColor: 'rgba(' + currentColor + ',1)',
+        pointColor: 'rgba(' + currentColor + ',1)',
         pointStrokeColor: '#fff',
         pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
+        pointHighlightStroke: 'rgba(' + currentColor + ',1)',
         data: playerData
       });
     }

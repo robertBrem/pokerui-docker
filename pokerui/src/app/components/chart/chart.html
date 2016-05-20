@@ -7,10 +7,10 @@
   </div>
   <div class="row mt centered">
     <form class="form-inline" role="form">
-      <div class="form-group">
-        <input type="text" class="form-control" #timeUnit placeholder="time unit">
-      </div>
-      <button (click)="updateGraph(timeUnit.value)" class="btn btn-primary btn-lg">update</button>
+      <button (click)="updateGraph('SECONDS')" class="btn btn-primary btn-lg">in seconds</button>
+      <button (click)="updateGraph('MINUTES')" class="btn btn-primary btn-lg">in minutes</button>
+      <button (click)="updateGraph('HOURS')" class="btn btn-primary btn-lg">in hours</button>
+      <button (click)="updateGraph('DAYS')" class="btn btn-primary btn-lg">in days</button>
     </form>
     <h3 class="first">All Players</h3>
     <p-lineChart [value]="data" width="640" height="320" [scaleStartValue]="-100" [scaleBeginAtZero]="false"
