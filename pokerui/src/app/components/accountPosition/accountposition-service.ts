@@ -25,7 +25,7 @@ export class AccountPositionService {
   public create = (playerId:number, amount:number, currency:string):Observable<AccountPosition> => {
     var toAdd = JSON.stringify({playerId: playerId, amount: amount, currency: currency});
     return this.http
-      .post(this.playersUrl + playerId, toAdd, {headers: this.headers})
+      .post(this.playersUrl + playerId + '/accountpositions/', toAdd, {headers: this.headers})
       .map(res => res.json());
   }
 
@@ -47,9 +47,9 @@ export class AccountPositionService {
       .map(res => res.json());
   }
 
-  public getAccountHistory = (timeUnit:string):Observable<HistoryEntry[]> => {
+  public getAccountHistory = (timeUnit:string, maxEntries:number):Observable<HistoryEntry[]> => {
     return this.http
-      .get(this.playersUrl + 'accounthistory/' + '?summedUp=true&timeUnit=' + timeUnit)
+      .get(this.playersUrl + 'accounthistory/' + '?summedUp=true&timeUnit=' + timeUnit + '&maxEntries=' + maxEntries)
       .map(res => res.json());
   }
 

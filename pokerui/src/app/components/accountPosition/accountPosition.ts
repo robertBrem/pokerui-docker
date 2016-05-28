@@ -1,6 +1,6 @@
 export class AccountPosition {
   playerId:number;
-  date:Date;
+  creationDate:Date;
   formattedDate:string;
   amount:number;
   formattedAmount:string;

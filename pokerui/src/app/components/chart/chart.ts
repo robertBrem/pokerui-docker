@@ -13,21 +13,26 @@ import {AccountPositionService} from './../accountPosition/accountposition-servi
   selector: 'home',
   templateUrl: 'app/components/chart/chart.html',
   styleUrls: ['app/components/chart/chart.css'],
-  providers: [PlayerService, AccountPositionService],
+  providers: [AccountPositionService],
   directives: [LineChart],
   pipes: []
 })
 export class LineChartDemo {
   private data:any;
   private history:HistoryEntry[];
+  private maxEntriesDefault:number = 20;
 
-  constructor(private playerService:PlayerService, private accountPositionService:AccountPositionService) {
-    this.updateGraph('MINUTES');
+  constructor(private accountPositionService:AccountPositionService) {
+    this.updateGraph('MINUTES', this.maxEntriesDefault);
   }
 
-  private updateGraph(timeUnit:string) {
+  private updateGraph(timeUnit:string, maxEntries:number) {
+    if (maxEntries <= 0) {
+      maxEntries = this.maxEntriesDefault;
+    }
+    console.log('maxEntries: ' + maxEntries);
     this.accountPositionService
-      .getAccountHistory(timeUnit)
+      .getAccountHistory(timeUnit, maxEntries)
       .subscribe((data:HistoryEntry[]) => {
           this.history = data;
           this.redraw();

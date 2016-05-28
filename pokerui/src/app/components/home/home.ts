@@ -54,7 +54,7 @@ export class Home {
           let position:AccountPosition = data;
           let bigCurrencyAmount = position.amount / 100;
           position.formattedAmount = bigCurrencyAmount.toLocaleString('DE-CH', {minimumFractionDigits: 2}) + ' ' + position.currency;
-          let date:Date = new Date(position.date.toString());
+          let date:Date = new Date(position.creationDate.toString());
           position.formattedDate = date.toLocaleDateString('DE-CH') + ' ' + date.toLocaleTimeString('DE-CH');
           this.accountPositions.push(position);
         },
@@ -74,7 +74,7 @@ export class Home {
             let position:AccountPosition = this.accountPositions[key];
             let bigCurrencyAmount = position.amount / 100;
             position.formattedAmount = bigCurrencyAmount.toLocaleString('DE-CH', {minimumFractionDigits: 2}) + ' ' + position.currency;
-            let date:Date = new Date(position.date.toString());
+            let date:Date = new Date(position.creationDate.toString());
             position.formattedDate = date.toLocaleDateString('DE-CH') + ' ' + date.toLocaleTimeString('DE-CH');
           }
         },
