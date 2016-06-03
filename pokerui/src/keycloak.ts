@@ -16,7 +16,7 @@ export class KeycloakService {
         .success( () => {
           KeycloakService.auth.loggedIn = true;
           KeycloakService.auth.authz = keycloakAuth;
-          KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl + "/realms/pokerstats/protocol/openid-connect/logout?redirect_uri=http://localhost:3000";
+          KeycloakService.auth.logoutUrl = keycloakAuth.authServerUrl + "/realms/pokerstats/protocol/openid-connect/logout?redirect_uri=http://5.189.173.45:30030";
           resolve(null);
         })
         .error(()=> {
