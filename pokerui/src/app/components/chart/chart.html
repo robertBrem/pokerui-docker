@@ -14,8 +14,6 @@
       <button (click)="updateGraph('DAYS', maxEntries.value)" class="btn btn-primary btn-lg">in days</button>
     </form>
     <h3 class="first">All Players</h3>
-    <p-lineChart [value]="data" width="800" height="400" [scaleStartValue]="-100" [scaleBeginAtZero]="false"
-                 [scaleOverride]="true" [scaleSteps]="20" [scaleStepWidth]="10" [legend]="lgnd"></p-lineChart>
-    <div #lgnd></div>
+    <chart [options]="options"></chart>
   </div>
 </div>

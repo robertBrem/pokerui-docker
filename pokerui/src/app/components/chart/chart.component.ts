@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LineChart} from 'primeng/primeng';
+import { CHART_DIRECTIVES } from 'angular2-highcharts';
 
 import {TimeEntry} from './../accountPosition/timeentry';
 import {HistoryEntry} from './../accountPosition/historyentry';
@@ -10,15 +10,21 @@ import {AccountPositionService} from './../accountPosition/accountposition-servi
   templateUrl: 'app/components/chart/chart.html',
   styleUrls: ['app/components/chart/chart.css'],
   providers: [AccountPositionService],
-  directives: [LineChart],
+  directives: [CHART_DIRECTIVES],
   pipes: []
 })
-export class LineChartDemo {
-  private data:any;
+export class Chart {
   private history:HistoryEntry[];
   private maxEntriesDefault:number = 20;
+  private options:Object;
 
   constructor(private accountPositionService:AccountPositionService) {
+    this.options = {
+      title : { text : 'simple chart' },
+      series: [{
+        data: [29.9, 71.5, 106.4, 129.2],
+      }]
+    };
     this.updateGraph('MINUTES', this.maxEntriesDefault);
   }
 
@@ -43,6 +49,7 @@ export class LineChartDemo {
   private redraw() {
     let labels = [];
     let datasets = [];
+    let series = [];
     let colors:string[] = [];
     colors.push('255, 150, 150');
     colors.push('150, 255, 150');
@@ -71,7 +78,7 @@ export class LineChartDemo {
       let currentColor = colors.pop();
 
       datasets.push({
-        label: player.playerName,
+        name: player.playerName,
         fillColor: 'rgba(' + currentColor + ',0.2)',
         strokeColor: 'rgba(' + currentColor + ',1)',
         pointColor: 'rgba(' + currentColor + ',1)',
@@ -82,9 +89,23 @@ export class LineChartDemo {
       });
     }
 
-    this.data = {
-      labels: labels,
-      datasets: datasets
+    console.log('datasets: ' + datasets);
+    this.options = {
+      chart: {
+        type: 'spline'
+      },
+      title : {
+        text : 'Cool Chart'
+      },
+      xAxis: {
+        categories: labels
+      },
+      plotOptions: {
+        series: {
+          connectNulls: true
+        }
+      },
+      series: datasets
     }
   };
 }

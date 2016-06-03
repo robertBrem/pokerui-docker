@@ -3,7 +3,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 import {Home} from './components/home/home.component';
 import {About} from './components/about/about';
-import {LineChartDemo} from './components/chart/chart.component';
+import {Chart} from './components/chart/chart.component';
 import {KeycloakService} from '../keycloak';
 
 @Component({
@@ -15,7 +15,7 @@ import {KeycloakService} from '../keycloak';
 })
 @RouteConfig([
   {path: '/home', component: Home, name: 'Home', useAsDefault: true},
-  {path: '/chart', component: LineChartDemo, name: 'Chart'},
+  {path: '/chart', component: Chart, name: 'Chart'},
   {path: '/about', component: About, name: 'About'},
 ])
 export class SeedApp {

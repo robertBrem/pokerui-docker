@@ -54,7 +54,7 @@ var defaultConfig = {
           path.join(__dirname, 'node_modules', 'rxjs'),
           path.join(__dirname, 'node_modules', '@angular2-material'),
           path.join(__dirname, 'node_modules', '@angular'),
-          path.join(__dirname, 'node_modules', 'primeng')
+          path.join(__dirname, 'node_modules', 'angular2-highcharts')
         ]
       }
     ],
