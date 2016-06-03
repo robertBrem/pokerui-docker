@@ -5,6 +5,8 @@ export declare class TabPanel {
     closable: boolean;
     headerStyle: any;
     headerStyleClass: string;
+    leftIcon: string;
+    rightIcon: string;
     hoverHeader: boolean;
     closed: boolean;
 }

@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var domhandler_1 = require('../dom/domhandler');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var TabMenu = (function () {
-    function TabMenu(router, location) {
+    function TabMenu(router) {
         this.router = router;
-        this.location = location;
     }
     TabMenu.prototype.ngOnInit = function () {
         if (!this.activeItem && this.model && this.model.length) {
@@ -23,6 +21,9 @@ var TabMenu = (function () {
         }
     };
     TabMenu.prototype.itemClick = function (event, item) {
+        if (!item.url || item.routerLink) {
+            event.preventDefault();
+        }
         if (item.command) {
             if (!item.eventEmitter) {
                 item.eventEmitter = new core_1.EventEmitter();
@@ -30,8 +31,8 @@ var TabMenu = (function () {
             }
             item.eventEmitter.emit(event);
         }
-        if (!item.url) {
-            event.preventDefault();
+        if (item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
         this.activeItem = item;
     };
@@ -41,17 +42,6 @@ var TabMenu = (function () {
                 var item = _a[_i];
                 this.unsubscribe(item);
             }
-        }
-    };
-    TabMenu.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
         }
     };
     TabMenu.prototype.unsubscribe = function (item) {
@@ -88,10 +78,10 @@ var TabMenu = (function () {
     TabMenu = __decorate([
         core_1.Component({
             selector: 'p-tabMenu',
-            template: "\n        <div [ngClass]=\"'ui-tabmenu ui-widget ui-widget-content ui-corner-all'\" [ngStyle]=\"style\" [class]=\"styleClass\">\n            <ul class=\"ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\">\n                <li *ngFor=\"let item of model\" \n                    [ngClass]=\"{'ui-tabmenuitem ui-state-default ui-corner-top':true,\n                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-hover':hoveredItem==item,'ui-state-active':activeItem==item}\"\n                    (mouseenter)=\"hoveredItem=item\" (mouseleave)=\"hoveredItem=null\">\n                    <a [href]=\"getItemUrl(item)\"class=\"ui-menuitem-link ui-corner-all\" (click)=\"itemClick($event,item)\">\n                        <span class=\"ui-menuitem-icon fa\" [ngClass]=\"item.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    ",
+            template: "\n        <div [ngClass]=\"'ui-tabmenu ui-widget ui-widget-content ui-corner-all'\" [ngStyle]=\"style\" [class]=\"styleClass\">\n            <ul class=\"ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\">\n                <li *ngFor=\"let item of model\" \n                    [ngClass]=\"{'ui-tabmenuitem ui-state-default ui-corner-top':true,\n                        'ui-tabmenuitem-hasicon':item.icon,'ui-state-hover':hoveredItem==item,'ui-state-active':activeItem==item}\"\n                    (mouseenter)=\"hoveredItem=item\" (mouseleave)=\"hoveredItem=null\">\n                    <a [href]=\"item.url||'#'\" class=\"ui-menuitem-link ui-corner-all\" (click)=\"itemClick($event,item)\">\n                        <span class=\"ui-menuitem-icon fa\" [ngClass]=\"item.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    ",
             providers: [domhandler_1.DomHandler]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [router_1.Router])
     ], TabMenu);
     return TabMenu;
 }());

@@ -23,8 +23,12 @@ var SplitButtonItem = (function () {
     ], SplitButtonItem.prototype, "label", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', String)
     ], SplitButtonItem.prototype, "url", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SplitButtonItem.prototype, "routerLink", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)

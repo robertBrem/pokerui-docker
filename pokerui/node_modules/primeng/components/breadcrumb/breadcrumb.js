@@ -9,14 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var Breadcrumb = (function () {
-    function Breadcrumb(router, location) {
+    function Breadcrumb(router) {
         this.router = router;
-        this.location = location;
     }
     Breadcrumb.prototype.itemClick = function (event, item) {
+        if (!item.url || item.routerLink) {
+            event.preventDefault();
+        }
         if (item.command) {
             if (!item.eventEmitter) {
                 item.eventEmitter = new core_1.EventEmitter();
@@ -24,19 +25,8 @@ var Breadcrumb = (function () {
             }
             item.eventEmitter.emit(event);
         }
-        if (!item.url) {
-            event.preventDefault();
-        }
-    };
-    Breadcrumb.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
+        if (item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     };
     Breadcrumb.prototype.ngOnDestroy = function () {
@@ -64,9 +54,9 @@ var Breadcrumb = (function () {
     Breadcrumb = __decorate([
         core_1.Component({
             selector: 'p-breadcrumb',
-            template: "\n        <div [class]=\"styleClass\" [ngStyle]=\"style\" [ngClass]=\"'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'\">\n            <ul>\n                <li class=\"fa fa-home\"></li>\n                <template ngFor let-item let-end=\"last\" [ngForOf]=\"model\">\n                    <li role=\"menuitem\">\n                        <a [href]=\"getItemUrl(item)\" class=\"ui-menuitem-link\" (click)=\"itemClick($event, item)\">\n                            <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                        </a>\n                    </li>\n                    <li class=\"ui-breadcrumb-chevron fa fa-chevron-right\" *ngIf=\"!end\"></li>\n                </template>\n            </ul>\n        </div>\n    "
+            template: "\n        <div [class]=\"styleClass\" [ngStyle]=\"style\" [ngClass]=\"'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'\">\n            <ul>\n                <li class=\"fa fa-home\"></li>\n                <template ngFor let-item let-end=\"last\" [ngForOf]=\"model\">\n                    <li role=\"menuitem\">\n                        <a [href]=\"item.url||'#'\" class=\"ui-menuitem-link\" (click)=\"itemClick($event, item)\">\n                            <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                        </a>\n                    </li>\n                    <li class=\"ui-breadcrumb-chevron fa fa-chevron-right\" *ngIf=\"!end\"></li>\n                </template>\n            </ul>\n        </div>\n    "
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [router_1.Router])
     ], Breadcrumb);
     return Breadcrumb;
 }());

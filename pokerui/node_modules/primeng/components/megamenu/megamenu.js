@@ -10,15 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var domhandler_1 = require('../dom/domhandler');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var MegaMenu = (function () {
-    function MegaMenu(el, domHandler, renderer, router, location) {
+    function MegaMenu(el, domHandler, renderer, router) {
         this.el = el;
         this.domHandler = domHandler;
         this.renderer = renderer;
         this.router = router;
-        this.location = location;
         this.orientation = 'horizontal';
     }
     MegaMenu.prototype.onItemMouseEnter = function (event, item) {
@@ -42,6 +40,9 @@ var MegaMenu = (function () {
         this.activeLink = null;
     };
     MegaMenu.prototype.itemClick = function (event, item) {
+        if (!item.url || item.routerLink) {
+            event.preventDefault();
+        }
         if (item.command) {
             if (!item.eventEmitter) {
                 item.eventEmitter = new core_1.EventEmitter();
@@ -49,8 +50,8 @@ var MegaMenu = (function () {
             }
             item.eventEmitter.emit(event);
         }
-        if (!item.url) {
-            event.preventDefault();
+        if (item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
         this.activeItem = null;
         this.activeLink = null;
@@ -96,17 +97,6 @@ var MegaMenu = (function () {
         }
         return columnClass;
     };
-    MegaMenu.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
-    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
@@ -126,10 +116,10 @@ var MegaMenu = (function () {
     MegaMenu = __decorate([
         core_1.Component({
             selector: 'p-megaMenu',
-            template: "\n        <div [class]=\"styleClass\" [ngStyle]=\"style\"\n            [ngClass]=\"{'ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-megamenu-vertical': orientation == 'vertical'}\">\n            <ul class=\"ui-menu-list ui-helper-reset\">\n                <template ngFor let-category [ngForOf]=\"model\">\n                    <li #item [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':category.items,'ui-menuitem-active':item==activeItem}\"\n                        (mouseenter)=\"onItemMouseEnter($event, item)\" (mouseleave)=\"onItemMouseLeave($event, item)\">\n                        <a #link class=\"ui-menuitem-link ui-corner-all ui-submenu-link\" [ngClass]=\"{'ui-state-hover':link==activeLink}\">\n                            <span class=\"ui-submenu-icon fa fa-fw\" [ngClass]=\"{'fa-caret-down':orientation=='horizontal','fa-caret-right':orientation=='vertical'}\"></span>\n                            <span class=\"ui-menuitem-icon fa fa-fw\" [ngClass]=\"category.icon\"></span>\n                            {{category.label}}\n                        </a>\n                        <div class=\"ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow\">\n                            <div class=\"ui-grid\">\n                                <div class=\"ui-grid-row\">\n                                    <template ngFor let-column [ngForOf]=\"category.items\">\n                                        <div [class]=\"getColumnClass(category)\">\n                                            <template ngFor let-submenu [ngForOf]=\"column\">\n                                                <ul class=\"ui-menu-list ui-helper-reset\">\n                                                    <li class=\"ui-widget-header ui-corner-all\"><h3>{{submenu.label}}</h3></li>\n                                                    <li *ngFor=\"let item of submenu.items\" class=\"ui-menuitem ui-widget ui-corner-all\">\n                                                        <a #link [href]=\"getItemUrl(item)\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==hoveredItem}\"\n                                                            (mouseenter)=\"hoveredItem=$event.target\" (mouseleave)=\"hoveredItem=null\" (click)=\"itemClick($event, item)\">\n                                                            <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"item.icon\" [ngClass]=\"item.icon\"></span>\n                                                            <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                                                        </a>\n                                                    </li>\n                                                </ul>\n                                            </template>\n                                        </div>\n                                    </template>\n                                </div>\n                            </div>\n                        </div>\n                    </li>\n                </template>\n            </ul>\n        </div>\n    ",
+            template: "\n        <div [class]=\"styleClass\" [ngStyle]=\"style\"\n            [ngClass]=\"{'ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix':true,'ui-megamenu-vertical': orientation == 'vertical'}\">\n            <ul class=\"ui-menu-list ui-helper-reset\">\n                <template ngFor let-category [ngForOf]=\"model\">\n                    <li #item [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':category.items,'ui-menuitem-active':item==activeItem}\"\n                        (mouseenter)=\"onItemMouseEnter($event, item)\" (mouseleave)=\"onItemMouseLeave($event, item)\">\n                        <a #link class=\"ui-menuitem-link ui-corner-all ui-submenu-link\" [ngClass]=\"{'ui-state-hover':link==activeLink}\">\n                            <span class=\"ui-submenu-icon fa fa-fw\" [ngClass]=\"{'fa-caret-down':orientation=='horizontal','fa-caret-right':orientation=='vertical'}\"></span>\n                            <span class=\"ui-menuitem-icon fa fa-fw\" [ngClass]=\"category.icon\"></span>\n                            {{category.label}}\n                        </a>\n                        <div class=\"ui-megamenu-panel ui-widget-content ui-menu-list ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow\">\n                            <div class=\"ui-grid\">\n                                <div class=\"ui-grid-row\">\n                                    <template ngFor let-column [ngForOf]=\"category.items\">\n                                        <div [class]=\"getColumnClass(category)\">\n                                            <template ngFor let-submenu [ngForOf]=\"column\">\n                                                <ul class=\"ui-menu-list ui-helper-reset\">\n                                                    <li class=\"ui-widget-header ui-corner-all\"><h3>{{submenu.label}}</h3></li>\n                                                    <li *ngFor=\"let item of submenu.items\" class=\"ui-menuitem ui-widget ui-corner-all\">\n                                                        <a #link [href]=\"item.url||'#'\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==hoveredItem}\"\n                                                            (mouseenter)=\"hoveredItem=$event.target\" (mouseleave)=\"hoveredItem=null\" (click)=\"itemClick($event, item)\">\n                                                            <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"item.icon\" [ngClass]=\"item.icon\"></span>\n                                                            <span class=\"ui-menuitem-text\">{{item.label}}</span>\n                                                        </a>\n                                                    </li>\n                                                </ul>\n                                            </template>\n                                        </div>\n                                    </template>\n                                </div>\n                            </div>\n                        </div>\n                    </li>\n                </template>\n            </ul>\n        </div>\n    ",
             providers: [domhandler_1.DomHandler]
         }), 
-        __metadata('design:paramtypes', [core_1.ElementRef, domhandler_1.DomHandler, core_1.Renderer, router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [core_1.ElementRef, domhandler_1.DomHandler, core_1.Renderer, router_1.Router])
     ], MegaMenu);
     return MegaMenu;
 }());

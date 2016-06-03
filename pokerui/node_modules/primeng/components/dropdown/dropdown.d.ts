@@ -1,5 +1,5 @@
 import { ElementRef, OnInit, AfterViewInit, AfterViewChecked, DoCheck, OnDestroy, Renderer, EventEmitter, TemplateRef, IterableDiffers } from '@angular/core';
-import { SelectItem } from '../api/selectitem';
+import { SelectItem } from '../common';
 import { DomHandler } from '../dom/domhandler';
 import { ControlValueAccessor } from '@angular/common';
 export declare class Dropdown implements OnInit, AfterViewInit, AfterViewChecked, DoCheck, OnDestroy, ControlValueAccessor {

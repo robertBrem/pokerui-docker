@@ -1,5 +1,5 @@
 import { EventEmitter, QueryList } from '@angular/core';
-import { TreeNode } from '../api/treenode';
+import { TreeNode } from '../common';
 import { Column } from '../column/column';
 export declare class TreeTable {
     value: TreeNode[];

@@ -1,17 +1,14 @@
 import { ElementRef } from '@angular/core';
-import { MenuItem } from '../api/menumodel';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router-deprecated';
+import { MenuItem } from '../common';
+import { Router } from '@angular/router';
 export declare class PanelMenuSub {
     private router;
-    private location;
     item: MenuItem;
     expanded: boolean;
-    constructor(router: Router, location: Location);
+    constructor(router: Router);
     activeItems: MenuItem[];
     onClick(event: any, item: MenuItem): void;
     isActive(item: MenuItem): boolean;
-    getItemUrl(item: MenuItem): string;
 }
 export declare class PanelMenu {
     private el;

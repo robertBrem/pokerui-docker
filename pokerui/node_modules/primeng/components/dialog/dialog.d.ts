@@ -36,6 +36,7 @@ export declare class Dialog implements AfterViewInit, AfterViewChecked, OnDestro
     mask: any;
     shown: boolean;
     contentContainer: any;
+    positionInitialized: boolean;
     constructor(el: ElementRef, domHandler: DomHandler, renderer: Renderer);
     visible: boolean;
     ngAfterViewInit(): void;

@@ -30,10 +30,10 @@ var Button = (function () {
         this.el.nativeElement.appendChild(labelElement);
         this.initialized = true;
     };
-    Button.prototype.onMouseover = function (e) {
+    Button.prototype.onMouseenter = function (e) {
         this.hover = true;
     };
-    Button.prototype.onMouseout = function (e) {
+    Button.prototype.onMouseleave = function (e) {
         this.hover = false;
         this.active = false;
     };
@@ -98,17 +98,17 @@ var Button = (function () {
         __metadata('design:type', String)
     ], Button.prototype, "iconPos", void 0);
     __decorate([
-        core_1.HostListener('mouseover', ['$event']), 
+        core_1.HostListener('mouseenter', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
-    ], Button.prototype, "onMouseover", null);
+    ], Button.prototype, "onMouseenter", null);
     __decorate([
-        core_1.HostListener('mouseout', ['$event']), 
+        core_1.HostListener('mouseleave', ['$event']), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', [Object]), 
         __metadata('design:returntype', void 0)
-    ], Button.prototype, "onMouseout", null);
+    ], Button.prototype, "onMouseleave", null);
     __decorate([
         core_1.HostListener('mousedown', ['$event']), 
         __metadata('design:type', Function), 
@@ -141,7 +141,7 @@ var Button = (function () {
         core_1.Directive({
             selector: '[pButton]',
             host: {
-                '[class.ui-state-hover]': 'hover',
+                '[class.ui-state-hover]': 'hover&&!isDisabled()',
                 '[class.ui-state-focus]': 'focus',
                 '[class.ui-state-active]': 'active',
                 '[class.ui-state-disabled]': 'isDisabled()'

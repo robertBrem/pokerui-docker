@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var header_1 = require('../common/header');
-var footer_1 = require('../common/footer');
+var common_1 = require('../common');
+var common_2 = require('../common');
 var paginator_1 = require('../paginator/paginator');
 var DataList = (function () {
     function DataList(el, differs) {
@@ -122,11 +122,11 @@ var DataList = (function () {
         __metadata('design:type', String)
     ], DataList.prototype, "styleClass", void 0);
     __decorate([
-        core_1.ContentChild(header_1.Header), 
+        core_1.ContentChild(common_1.Header), 
         __metadata('design:type', Object)
     ], DataList.prototype, "header", void 0);
     __decorate([
-        core_1.ContentChild(footer_1.Footer), 
+        core_1.ContentChild(common_2.Footer), 
         __metadata('design:type', Object)
     ], DataList.prototype, "footer", void 0);
     __decorate([

@@ -10,13 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var domhandler_1 = require('../dom/domhandler');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var ContextMenuSub = (function () {
-    function ContextMenuSub(domHandler, router, location) {
+    function ContextMenuSub(domHandler, router) {
         this.domHandler = domHandler;
         this.router = router;
-        this.location = location;
     }
     ContextMenuSub.prototype.onItemMouseEnter = function (event, item) {
         this.activeItem = item;
@@ -34,6 +32,9 @@ var ContextMenuSub = (function () {
         this.activeLink = null;
     };
     ContextMenuSub.prototype.itemClick = function (event, item) {
+        if (!item.url || item.routerLink) {
+            event.preventDefault();
+        }
         if (item.command) {
             if (!item.eventEmitter) {
                 item.eventEmitter = new core_1.EventEmitter();
@@ -41,24 +42,13 @@ var ContextMenuSub = (function () {
             }
             item.eventEmitter.emit(event);
         }
-        if (!item.url) {
-            event.preventDefault();
+        if (item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     };
     ContextMenuSub.prototype.listClick = function (event) {
         this.activeItem = null;
         this.activeLink = null;
-    };
-    ContextMenuSub.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
     };
     __decorate([
         core_1.Input(), 
@@ -71,11 +61,11 @@ var ContextMenuSub = (function () {
     ContextMenuSub = __decorate([
         core_1.Component({
             selector: 'p-contextMenuSub',
-            template: "\n        <ul [ngClass]=\"{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}\" class=\"ui-menu-list\"\n            (click)=\"listClick($event)\">\n            <template ngFor let-child [ngForOf]=\"(root ? item : item.items)\">\n                <li #item [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}\"\n                    (mouseenter)=\"onItemMouseEnter($event, item)\" (mouseleave)=\"onItemMouseLeave($event, item)\">\n                    <a #link [href]=\"getItemUrl(child)\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==activeLink}\" (click)=\"itemClick($event, child)\">\n                        <span class=\"ui-submenu-icon fa fa-fw fa-caret-right\" *ngIf=\"child.items\"></span>\n                        <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"child.icon\" [ngClass]=\"child.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                    </a>\n                    <p-contextMenuSub class=\"ui-submenu\" [item]=\"child\" *ngIf=\"child.items\"></p-contextMenuSub>\n                </li>\n            </template>\n        </ul>\n    ",
+            template: "\n        <ul [ngClass]=\"{'ui-helper-reset':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child ui-shadow':!root}\" class=\"ui-menu-list\"\n            (click)=\"listClick($event)\">\n            <template ngFor let-child [ngForOf]=\"(root ? item : item.items)\">\n                <li #item [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':item==activeItem}\"\n                    (mouseenter)=\"onItemMouseEnter($event, item)\" (mouseleave)=\"onItemMouseLeave($event, item)\">\n                    <a #link [href]=\"child.url||'#'\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==activeLink}\" (click)=\"itemClick($event, child)\">\n                        <span class=\"ui-submenu-icon fa fa-fw fa-caret-right\" *ngIf=\"child.items\"></span>\n                        <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"child.icon\" [ngClass]=\"child.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                    </a>\n                    <p-contextMenuSub class=\"ui-submenu\" [item]=\"child\" *ngIf=\"child.items\"></p-contextMenuSub>\n                </li>\n            </template>\n        </ul>\n    ",
             directives: [ContextMenuSub],
             providers: [domhandler_1.DomHandler]
         }), 
-        __metadata('design:paramtypes', [domhandler_1.DomHandler, router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [domhandler_1.DomHandler, router_1.Router])
     ], ContextMenuSub);
     return ContextMenuSub;
 }());

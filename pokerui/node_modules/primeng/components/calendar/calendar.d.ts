@@ -44,6 +44,7 @@ export declare class Calendar implements AfterViewInit, OnChanges, OnDestroy, Co
     maxTime: string;
     timezoneList: string[];
     locale: any;
+    icon: string;
     onBlur: EventEmitter<any>;
     onSelect: EventEmitter<any>;
     value: string;

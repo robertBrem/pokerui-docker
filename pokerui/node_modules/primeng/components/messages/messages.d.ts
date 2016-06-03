@@ -1,4 +1,4 @@
-import { Message } from '../api/message';
+import { Message } from '../common';
 export declare class Messages {
     value: Message[];
     closable: boolean;

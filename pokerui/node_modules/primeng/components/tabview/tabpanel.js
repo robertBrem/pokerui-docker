@@ -36,6 +36,14 @@ var TabPanel = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], TabPanel.prototype, "headerStyleClass", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], TabPanel.prototype, "leftIcon", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], TabPanel.prototype, "rightIcon", void 0);
     TabPanel = __decorate([
         core_1.Component({
             selector: 'p-tabPanel',

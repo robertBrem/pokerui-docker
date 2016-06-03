@@ -2,6 +2,7 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
+__export(require('./components/common'));
 __export(require('./components/accordion/accordion'));
 __export(require('./components/accordion/accordiontab'));
 __export(require('./components/autocomplete/autocomplete'));
@@ -11,16 +12,11 @@ __export(require('./components/calendar/calendar'));
 __export(require('./components/carousel/carousel'));
 __export(require('./components/codehighlighter/codehighlighter'));
 __export(require('./components/contextmenu/contextmenu'));
-__export(require('./components/chart/barchart/barchart'));
-__export(require('./components/chart/doughnutchart/doughnutchart'));
-__export(require('./components/chart/linechart/linechart'));
-__export(require('./components/chart/piechart/piechart'));
-__export(require('./components/chart/polarareachart/polarareachart'));
-__export(require('./components/chart/radarchart/radarchart'));
+__export(require('./components/chart/chart'));
 __export(require('./components/checkbox/checkbox'));
 __export(require('./components/column/column'));
-__export(require('./components/common/header'));
-__export(require('./components/common/footer'));
+__export(require('./components/common'));
+__export(require('./components/common'));
 __export(require('./components/datagrid/datagrid'));
 __export(require('./components/datalist/datalist'));
 __export(require('./components/datascroller/datascroller'));

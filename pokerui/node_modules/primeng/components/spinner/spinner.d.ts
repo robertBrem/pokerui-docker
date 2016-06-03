@@ -20,6 +20,7 @@ export declare class Spinner implements AfterViewInit, ControlValueAccessor {
     private activeDown;
     private precision;
     private timer;
+    private inputtext;
     constructor(el: ElementRef, domHandler: DomHandler);
     ngAfterViewInit(): void;
     repeat(interval: any, dir: any, input: any): void;

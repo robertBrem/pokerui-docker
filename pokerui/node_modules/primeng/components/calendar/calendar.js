@@ -32,6 +32,7 @@ var Calendar = (function () {
         this.hourGrid = 0;
         this.minuteGrid = 0;
         this.secondGrid = 0;
+        this.icon = 'fa-calendar';
         this.onBlur = new core_1.EventEmitter();
         this.onSelect = new core_1.EventEmitter();
         this.onModelChange = function () { };
@@ -291,6 +292,10 @@ var Calendar = (function () {
         __metadata('design:type', Object)
     ], Calendar.prototype, "locale", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], Calendar.prototype, "icon", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], Calendar.prototype, "onBlur", void 0);
@@ -301,7 +306,7 @@ var Calendar = (function () {
     Calendar = __decorate([
         core_1.Component({
             selector: 'p-calendar',
-            template: "\n        <span [ngStyle]=\"style\" [class]=\"styleClass\" [ngClass]=\"'ui-calendar'\" *ngIf=\"!inline\">\n        <input #in type=\"text\" [attr.placeholder]=\"placeholder\" [ngStyle]=\"inputStyle\" [class]=\"inputStyleClass\"\n                [value]=\"value||''\" (input)=\"onInput($event)\" [readonly]=\"readonlyInput\"\n                [disabled]=\"disabled\" (mouseenter)=\"hovered=true\" (mouseleave)=\"hovered=false\" (focus)=\"focused=true\" (blur)=\"handleBlur($event)\"\n                [ngClass]=\"{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,\n                    'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}\"\n        ><button type=\"button\" icon=\"fa-calendar\" pButton *ngIf=\"showIcon\" (click)=\"onButtonClick($event,in)\" class=\"ui-datepicker-trigger\"></button></span>\n        <div *ngIf=\"inline\"></div>\n    ",
+            template: "\n        <span [ngStyle]=\"style\" [class]=\"styleClass\" [ngClass]=\"'ui-calendar'\" *ngIf=\"!inline\">\n        <input #in type=\"text\" [attr.placeholder]=\"placeholder\" [ngStyle]=\"inputStyle\" [class]=\"inputStyleClass\"\n                [value]=\"value||''\" (input)=\"onInput($event)\" [readonly]=\"readonlyInput\"\n                [disabled]=\"disabled\" (mouseenter)=\"hovered=true\" (mouseleave)=\"hovered=false\" (focus)=\"focused=true\" (blur)=\"handleBlur($event)\"\n                [ngClass]=\"{'ui-inputtext ui-widget ui-state-default': true, 'ui-corner-all': !showIcon, 'ui-corner-left': showIcon,\n                    'ui-state-hover':hovered,'ui-state-focus':focused,'ui-state-disabled':disabled}\"\n        ><button type=\"button\" [icon]=\"icon\" pButton *ngIf=\"showIcon\" (click)=\"onButtonClick($event,in)\" class=\"ui-datepicker-trigger\"></button></span>\n        <div *ngIf=\"inline\"></div>\n    ",
             directives: [button_1.Button],
             providers: [CALENDAR_VALUE_ACCESSOR]
         }), 

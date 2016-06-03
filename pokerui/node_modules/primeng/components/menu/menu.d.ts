@@ -1,14 +1,12 @@
 import { ElementRef, AfterViewInit, OnDestroy, Renderer } from '@angular/core';
 import { DomHandler } from '../dom/domhandler';
-import { MenuItem } from '../api/menumodel';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router-deprecated';
+import { MenuItem } from '../common';
+import { Router } from '@angular/router';
 export declare class Menu implements AfterViewInit, OnDestroy {
     private el;
     private domHandler;
     private renderer;
     private router;
-    private location;
     model: MenuItem[];
     popup: boolean;
     style: any;
@@ -16,7 +14,7 @@ export declare class Menu implements AfterViewInit, OnDestroy {
     container: any;
     documentClickListener: any;
     preventDocumentDefault: any;
-    constructor(el: ElementRef, domHandler: DomHandler, renderer: Renderer, router: Router, location: Location);
+    constructor(el: ElementRef, domHandler: DomHandler, renderer: Renderer, router: Router);
     ngAfterViewInit(): void;
     toggle(event: any): void;
     show(event: any): void;
@@ -25,5 +23,4 @@ export declare class Menu implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void;
     hasSubMenu(): boolean;
     unsubscribe(item: any): void;
-    getItemUrl(item: MenuItem): string;
 }

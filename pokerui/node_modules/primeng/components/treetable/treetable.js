@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var uitreerow_1 = require('./uitreerow');
 var column_1 = require('../column/column');
-var header_1 = require('../common/header');
-var footer_1 = require('../common/footer');
+var common_1 = require('../common');
+var common_2 = require('../common');
 var TreeTable = (function () {
     function TreeTable() {
         this.selectionChange = new core_1.EventEmitter();
@@ -130,11 +130,11 @@ var TreeTable = (function () {
         __metadata('design:type', String)
     ], TreeTable.prototype, "styleClass", void 0);
     __decorate([
-        core_1.ContentChild(header_1.Header), 
+        core_1.ContentChild(common_1.Header), 
         __metadata('design:type', Object)
     ], TreeTable.prototype, "header", void 0);
     __decorate([
-        core_1.ContentChild(footer_1.Footer), 
+        core_1.ContentChild(common_2.Footer), 
         __metadata('design:type', Object)
     ], TreeTable.prototype, "footer", void 0);
     __decorate([

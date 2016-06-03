@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var header_1 = require('../common/header');
-var footer_1 = require('../common/footer');
+var common_1 = require('../common');
+var common_2 = require('../common');
 var domhandler_1 = require('../dom/domhandler');
 var DataScroller = (function () {
     function DataScroller(el, differs, renderer, domHandler) {
@@ -142,11 +142,11 @@ var DataScroller = (function () {
         __metadata('design:type', Object)
     ], DataScroller.prototype, "scrollHeight", void 0);
     __decorate([
-        core_1.ContentChild(header_1.Header), 
+        core_1.ContentChild(common_1.Header), 
         __metadata('design:type', Object)
     ], DataScroller.prototype, "header", void 0);
     __decorate([
-        core_1.ContentChild(footer_1.Footer), 
+        core_1.ContentChild(common_2.Footer), 
         __metadata('design:type', Object)
     ], DataScroller.prototype, "footer", void 0);
     __decorate([

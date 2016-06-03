@@ -1,23 +1,20 @@
 import { ElementRef, AfterViewInit, OnDestroy, Renderer } from '@angular/core';
 import { DomHandler } from '../dom/domhandler';
-import { MenuItem } from '../api/menumodel';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router-deprecated';
+import { MenuItem } from '../common';
+import { Router } from '@angular/router';
 export declare class SlideMenuSub implements OnDestroy {
     private slideMenu;
     private router;
-    private location;
     item: MenuItem;
     root: boolean;
     backLabel: string;
     menuWidth: string;
     effectDuration: any;
     easing: string;
-    constructor(slideMenu: SlideMenu, router: Router, location: Location);
+    constructor(slideMenu: SlideMenu, router: Router);
     activeItem: any;
     hoveredLink: any;
     itemClick(event: any, item: MenuItem, listitem: any): void;
-    getItemUrl(item: MenuItem): string;
     ngOnDestroy(): void;
 }
 export declare class SlideMenu implements AfterViewInit, OnDestroy {

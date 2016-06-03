@@ -12,8 +12,8 @@ export declare class Button implements AfterViewInit, OnDestroy {
     private initialized;
     constructor(el: ElementRef, domHandler: DomHandler);
     ngAfterViewInit(): void;
-    onMouseover(e: any): void;
-    onMouseout(e: any): void;
+    onMouseenter(e: any): void;
+    onMouseleave(e: any): void;
     onMouseDown(e: any): void;
     onMouseUp(e: any): void;
     onFocus(e: any): void;

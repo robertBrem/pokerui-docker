@@ -1,13 +1,15 @@
-import { ElementRef, AfterViewInit, OnDestroy, EventEmitter, SimpleChange } from '@angular/core';
+import { ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
 import { DomHandler } from '../dom/domhandler';
 import { ControlValueAccessor } from '@angular/common';
-export declare class Editor implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export declare class Editor implements AfterViewInit, ControlValueAccessor {
     private el;
     private domHandler;
     onTextChange: EventEmitter<any>;
     toolbar: any;
     style: any;
     styleClass: string;
+    placeholder: string;
+    readOnly: boolean;
     value: string;
     onModelChange: Function;
     onModelTouched: Function;
@@ -18,8 +20,4 @@ export declare class Editor implements AfterViewInit, OnDestroy, ControlValueAcc
     writeValue(value: any): void;
     registerOnChange(fn: Function): void;
     registerOnTouched(fn: Function): void;
-    ngOnChanges(changes: {
-        [key: string]: SimpleChange;
-    }): void;
-    ngOnDestroy(): void;
 }

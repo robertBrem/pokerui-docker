@@ -35,6 +35,10 @@ var Dialog = (function () {
             this._visible = val;
             if (this._visible) {
                 this.onBeforeShow.emit({});
+                if (!this.positionInitialized) {
+                    this.center();
+                    this.positionInitialized = true;
+                }
                 this.el.nativeElement.children[0].style.zIndex = ++domhandler_1.DomHandler.zindex;
                 if (this.showEffect == 'fade')
                     this.domHandler.fadeIn(this.el.nativeElement.children[0], 250);
@@ -53,7 +57,6 @@ var Dialog = (function () {
     Dialog.prototype.ngAfterViewInit = function () {
         var _this = this;
         this.contentContainer = this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog-content');
-        this.center();
         if (this.draggable) {
             this.documentDragListener = this.renderer.listenGlobal('body', 'mousemove', function (event) {
                 _this.onDrag(event);
@@ -181,7 +184,7 @@ var Dialog = (function () {
         }
     };
     Dialog.prototype.ngOnDestroy = function () {
-        this.mask = null;
+        this.disableModality();
         if (this.documentDragListener) {
             this.documentDragListener();
         }

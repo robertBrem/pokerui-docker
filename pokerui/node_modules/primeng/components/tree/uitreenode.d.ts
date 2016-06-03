@@ -1,5 +1,5 @@
 import { Tree } from '../tree/tree';
-import { TreeNode } from '../api/treenode';
+import { TreeNode } from '../common';
 export declare class UITreeNode {
     private tree;
     static ICON_CLASS: string;

@@ -1,8 +1,8 @@
 import { ElementRef, AfterViewInit, OnDestroy, Renderer } from '@angular/core';
 import { DomHandler } from '../dom/domhandler';
-import { MenuItem } from '../api/menumodel';
+import { MenuItem } from '../common';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 export declare class TieredMenuSub {
     private domHandler;
     private router;
@@ -16,7 +16,6 @@ export declare class TieredMenuSub {
     onItemMouseLeave(event: any, link: any): void;
     itemClick(event: any, item: MenuItem): void;
     listClick(event: any): void;
-    getItemUrl(item: MenuItem): string;
 }
 export declare class TieredMenu implements AfterViewInit, OnDestroy {
     private el;

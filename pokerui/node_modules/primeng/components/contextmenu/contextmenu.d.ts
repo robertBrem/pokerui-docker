@@ -1,22 +1,19 @@
 import { ElementRef, AfterViewInit, OnDestroy, Renderer } from '@angular/core';
 import { DomHandler } from '../dom/domhandler';
-import { MenuItem } from '../api/menumodel';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router-deprecated';
+import { MenuItem } from '../common';
+import { Router } from '@angular/router';
 export declare class ContextMenuSub {
     private domHandler;
     private router;
-    private location;
     item: MenuItem;
     root: boolean;
-    constructor(domHandler: DomHandler, router: Router, location: Location);
+    constructor(domHandler: DomHandler, router: Router);
     activeItem: any;
     activeLink: any;
     onItemMouseEnter(event: any, item: any): void;
     onItemMouseLeave(event: any, link: any): void;
     itemClick(event: any, item: MenuItem): void;
     listClick(event: any): void;
-    getItemUrl(item: MenuItem): string;
 }
 export declare class ContextMenu implements AfterViewInit, OnDestroy {
     private el;

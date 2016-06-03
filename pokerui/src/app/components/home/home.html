@@ -24,7 +24,7 @@
         </tr>
         </tbody>
       </table>
-      <form class="form-inline" role="form">
+      <form class="{{ (roles.indexOf('admin') >= 0) ? 'form-inline' : 'hide' }}" role="form">
         <div class="form-group">
           <input type="text" class="form-control" #firstName placeholder="first name">
           <input type="text" class="form-control" #lastName placeholder="last name">
@@ -55,7 +55,7 @@
         </tr>
         </tbody>
       </table>
-      <form class="form-inline" role="form">
+      <form class="{{ (roles.indexOf('admin') >= 0) ? 'form-inline' : 'hide' }}" role="form">
         <div class="form-group">
           <input type="text" class="form-control" #prefix placeholder="+">
           <input type="text" class="form-control" #bigCurrency placeholder="CHF">

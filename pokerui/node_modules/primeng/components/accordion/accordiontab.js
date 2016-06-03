@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var accordion_1 = require('./accordion');
-var header_1 = require('../common/header');
+var common_1 = require('../common');
 var AccordionTab = (function () {
     function AccordionTab(accordion) {
         this.accordion = accordion;
@@ -60,7 +60,7 @@ var AccordionTab = (function () {
         __metadata('design:type', Boolean)
     ], AccordionTab.prototype, "disabled", void 0);
     __decorate([
-        core_1.ContentChild(header_1.Header), 
+        core_1.ContentChild(common_1.Header), 
         __metadata('design:type', Object)
     ], AccordionTab.prototype, "headerFacet", void 0);
     AccordionTab = __decorate([

@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { SelectItem } from '../api/selectitem';
+import { SelectItem } from '../common';
 import { ControlValueAccessor } from '@angular/common';
 export declare class SelectButton implements ControlValueAccessor {
     options: SelectItem[];

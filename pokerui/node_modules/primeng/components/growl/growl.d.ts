@@ -1,5 +1,5 @@
 import { ElementRef, AfterViewInit, DoCheck, OnDestroy, IterableDiffers } from '@angular/core';
-import { Message } from '../api/message';
+import { Message } from '../common';
 import { DomHandler } from '../dom/domhandler';
 export declare class Growl implements AfterViewInit, DoCheck, OnDestroy {
     private el;

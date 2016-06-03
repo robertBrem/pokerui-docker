@@ -1,5 +1,5 @@
 import { TreeTable } from './treetable';
-import { TreeNode } from '../api/treenode';
+import { TreeNode } from '../common';
 export declare class UITreeRow {
     private treeTable;
     node: TreeNode;

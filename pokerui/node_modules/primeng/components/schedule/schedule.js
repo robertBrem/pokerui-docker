@@ -33,6 +33,7 @@ var Schedule = (function () {
         this.onEventResizeStart = new core_1.EventEmitter();
         this.onEventResizeStop = new core_1.EventEmitter();
         this.onEventResize = new core_1.EventEmitter();
+        this.viewRender = new core_1.EventEmitter();
         this.differ = differs.find([]).create(null);
         this.initialized = false;
     }
@@ -96,7 +97,7 @@ var Schedule = (function () {
                 });
             },
             eventMouseout: function (calEvent, jsEvent, view) {
-                _this.onEventMouseover.emit({
+                _this.onEventMouseout.emit({
                     'calEvent': calEvent,
                     'jsEvent': jsEvent,
                     'view': view
@@ -146,6 +147,12 @@ var Schedule = (function () {
                     'revertFunc': revertFunc,
                     'jsEvent': jsEvent,
                     'view': view
+                });
+            },
+            viewRender: function (view, element) {
+                _this.viewRender.emit({
+                    'view': view,
+                    'element': element
                 });
             }
         };
@@ -344,6 +351,10 @@ var Schedule = (function () {
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
     ], Schedule.prototype, "onEventResize", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], Schedule.prototype, "viewRender", void 0);
     Schedule = __decorate([
         core_1.Component({
             selector: 'p-schedule',

@@ -80,7 +80,7 @@ var Tooltip = (function () {
         this.container.appendChild(tooltipArrow);
         var tooltipText = document.createElement('div');
         tooltipText.className = 'ui-tooltip-text ui-shadow ui-corner-all';
-        tooltipText.appendChild(document.createTextNode(this.text));
+        tooltipText.innerHTML = this.text;
         this.container.appendChild(tooltipText);
         document.body.appendChild(this.container);
     };

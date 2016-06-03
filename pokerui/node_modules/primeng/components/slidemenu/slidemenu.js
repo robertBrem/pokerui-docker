@@ -13,18 +13,19 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = require('@angular/core');
 var domhandler_1 = require('../dom/domhandler');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var SlideMenuSub = (function () {
-    function SlideMenuSub(slideMenu, router, location) {
+    function SlideMenuSub(slideMenu, router) {
         this.slideMenu = slideMenu;
         this.router = router;
-        this.location = location;
         this.backLabel = 'Back';
         this.effectDuration = '1s';
         this.easing = 'ease-out';
     }
     SlideMenuSub.prototype.itemClick = function (event, item, listitem) {
+        if (!item.url || item.routerLink) {
+            event.preventDefault();
+        }
         this.activeItem = listitem;
         if (item.command) {
             if (!item.eventEmitter && item.command) {
@@ -33,22 +34,11 @@ var SlideMenuSub = (function () {
             }
             item.eventEmitter.emit(event);
         }
-        if (!item.url) {
-            event.preventDefault();
-        }
         if (item.items) {
             this.slideMenu.left -= this.slideMenu.menuWidth;
         }
-    };
-    SlideMenuSub.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
+        if (item.routerLink) {
+            this.router.navigate(item.routerLink);
         }
     };
     SlideMenuSub.prototype.ngOnDestroy = function () {
@@ -82,11 +72,11 @@ var SlideMenuSub = (function () {
     SlideMenuSub = __decorate([
         core_1.Component({
             selector: 'p-slideMenuSub',
-            template: "\n        <ul [ngClass]=\"{'ui-helper-reset ui-menu-rootlist':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child':!root}\" class=\"ui-menu-list\"\n            [style.width.px]=\"menuWidth\" [style.left.px]=\"root ? slideMenu.left : slideMenu.menuWidth\" \n            [style.transitionProperty]=\"root ? 'left' : 'none'\" [style.transitionDuration]=\"effectDuration\" [style.transitionTimingFunction]=\"easing\">\n            <template ngFor let-child [ngForOf]=\"(root ? item : item.items)\">\n                <li #listitem [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listitem==activeItem}\">\n                    <a #link [href]=\"getItemUrl(child)\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==hoveredLink,'ui-menuitem-link-parent':child.items}\" \n                        (click)=\"itemClick($event, child, listitem)\" (mouseenter)=\"hoveredLink=link\" (mouseleave)=\"hoveredLink=null\">\n                        <span class=\"ui-submenu-icon fa fa-fw fa-caret-right\" *ngIf=\"child.items\"></span>\n                        <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"child.icon\" [ngClass]=\"child.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                    </a>\n                    <p-slideMenuSub class=\"ui-submenu\" [item]=\"child\" [menuWidth]=\"menuWidth\" *ngIf=\"child.items\"></p-slideMenuSub>\n                </li>\n            </template>\n        </ul>\n    ",
+            template: "\n        <ul [ngClass]=\"{'ui-helper-reset ui-menu-rootlist':root, 'ui-widget-content ui-corner-all ui-helper-clearfix ui-menu-child':!root}\" class=\"ui-menu-list\"\n            [style.width.px]=\"menuWidth\" [style.left.px]=\"root ? slideMenu.left : slideMenu.menuWidth\" \n            [style.transitionProperty]=\"root ? 'left' : 'none'\" [style.transitionDuration]=\"effectDuration\" [style.transitionTimingFunction]=\"easing\">\n            <template ngFor let-child [ngForOf]=\"(root ? item : item.items)\">\n                <li #listitem [ngClass]=\"{'ui-menuitem ui-widget ui-corner-all':true,'ui-menu-parent':child.items,'ui-menuitem-active':listitem==activeItem}\">\n                    <a #link [href]=\"child.url||'#'\" class=\"ui-menuitem-link ui-corner-all\" [ngClass]=\"{'ui-state-hover':link==hoveredLink,'ui-menuitem-link-parent':child.items}\" \n                        (click)=\"itemClick($event, child, listitem)\" (mouseenter)=\"hoveredLink=link\" (mouseleave)=\"hoveredLink=null\">\n                        <span class=\"ui-submenu-icon fa fa-fw fa-caret-right\" *ngIf=\"child.items\"></span>\n                        <span class=\"ui-menuitem-icon fa fa-fw\" *ngIf=\"child.icon\" [ngClass]=\"child.icon\"></span>\n                        <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                    </a>\n                    <p-slideMenuSub class=\"ui-submenu\" [item]=\"child\" [menuWidth]=\"menuWidth\" *ngIf=\"child.items\"></p-slideMenuSub>\n                </li>\n            </template>\n        </ul>\n    ",
             directives: [SlideMenuSub]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return SlideMenu; }))), 
-        __metadata('design:paramtypes', [SlideMenu, router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [SlideMenu, router_1.Router])
     ], SlideMenuSub);
     return SlideMenuSub;
 }());

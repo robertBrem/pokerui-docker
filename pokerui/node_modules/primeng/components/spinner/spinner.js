@@ -29,7 +29,10 @@ var Spinner = (function () {
         if (Math.floor(this.step) === 0) {
             this.precision = this.step.toString().split(/[,]|[.]/)[1].length;
         }
-        this.domHandler.findSingle(this.el.nativeElement, 'input').value = (this.value == undefined || this.value === undefined) ? '' : this.value;
+        this.inputtext = this.domHandler.findSingle(this.el.nativeElement, 'input');
+        if ((this.value !== null && this.value !== undefined)) {
+            this.inputtext.value = this.value;
+        }
     };
     Spinner.prototype.repeat = function (interval, dir, input) {
         var _this = this;
@@ -170,6 +173,9 @@ var Spinner = (function () {
     };
     Spinner.prototype.writeValue = function (value) {
         this.value = value;
+        if (this.inputtext && (this.value !== null && this.value !== undefined)) {
+            this.inputtext.value = this.value;
+        }
     };
     Spinner.prototype.registerOnChange = function (fn) {
         this.onModelChange = fn;

@@ -45,6 +45,7 @@ export declare class Schedule {
     onEventResizeStart: EventEmitter<any>;
     onEventResizeStop: EventEmitter<any>;
     onEventResize: EventEmitter<any>;
+    viewRender: EventEmitter<any>;
     initialized: boolean;
     stopNgOnChangesPropagation: boolean;
     differ: any;

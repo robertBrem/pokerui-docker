@@ -1,5 +1,5 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
-import { TreeNode } from '../api/treenode';
+import { TreeNode } from '../common';
 export declare class Tree {
     value: TreeNode[];
     selectionMode: string;

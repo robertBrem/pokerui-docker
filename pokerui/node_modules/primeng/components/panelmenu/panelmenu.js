@@ -9,12 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var PanelMenuSub = (function () {
-    function PanelMenuSub(router, location) {
+    function PanelMenuSub(router) {
         this.router = router;
-        this.location = location;
         this.activeItems = [];
     }
     PanelMenuSub.prototype.onClick = function (event, item) {
@@ -27,6 +25,9 @@ var PanelMenuSub = (function () {
             event.preventDefault();
         }
         else {
+            if (!item.url || item.routerLink) {
+                event.preventDefault();
+            }
             if (item.command) {
                 if (!item.eventEmitter) {
                     item.eventEmitter = new core_1.EventEmitter();
@@ -34,24 +35,13 @@ var PanelMenuSub = (function () {
                 }
                 item.eventEmitter.emit(event);
             }
-            if (!item.url) {
-                event.preventDefault();
+            if (item.routerLink) {
+                this.router.navigate(item.routerLink);
             }
         }
     };
     PanelMenuSub.prototype.isActive = function (item) {
         return this.activeItems.indexOf(item) != -1;
-    };
-    PanelMenuSub.prototype.getItemUrl = function (item) {
-        if (item.url) {
-            if (Array.isArray(item.url))
-                return this.location.prepareExternalUrl(this.router.generate(item.url).toLinkUrl());
-            else
-                return item.url;
-        }
-        else {
-            return '#';
-        }
     };
     __decorate([
         core_1.Input(), 
@@ -64,10 +54,10 @@ var PanelMenuSub = (function () {
     PanelMenuSub = __decorate([
         core_1.Component({
             selector: 'p-panelMenuSub',
-            template: "\n        <ul class=\"ui-menu-list ui-helper-reset\" [style.display]=\"expanded ? 'block' : 'none'\">\n            <li *ngFor=\"let child of item.items\" class=\"ui-menuitem ui-corner-all\" [ngClass]=\"{'ui-menu-parent':child.items}\">\n                <a #link [href]=\"getItemUrl(item)\" class=\"ui-menuitem-link ui-corner-all\" \n                    [ngClass]=\"{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}\" (click)=\"onClick($event,child)\"\n                    (mouseenter)=\"hoveredLink=link\" (mouseleave)=\"hoveredLink=null\">\n                    <span class=\"ui-panelmenu-icon fa fa-fw\" [ngClass]=\"{'fa-caret-right':!isActive(child),'fa-caret-down':isActive(child)}\" *ngIf=\"child.items\"></span>\n                    <span class=\"ui-menuitem-icon fa fa-fw\" [ngClass]=\"child.icon\" *ngIf=\"child.icon\"></span>\n                    <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                </a>\n                <p-panelMenuSub [item]=\"child\" [expanded]=\"isActive(child)\" *ngIf=\"child.items\"></p-panelMenuSub>\n            </li>\n        </ul>\n    ",
+            template: "\n        <ul class=\"ui-menu-list ui-helper-reset\" [style.display]=\"expanded ? 'block' : 'none'\">\n            <li *ngFor=\"let child of item.items\" class=\"ui-menuitem ui-corner-all\" [ngClass]=\"{'ui-menu-parent':child.items}\">\n                <a #link [href]=\"item.url||'#'\" class=\"ui-menuitem-link ui-corner-all\" \n                    [ngClass]=\"{'ui-menuitem-link-hasicon':child.icon&&child.items,'ui-state-hover':(hoveredLink==link)}\" (click)=\"onClick($event,child)\"\n                    (mouseenter)=\"hoveredLink=link\" (mouseleave)=\"hoveredLink=null\">\n                    <span class=\"ui-panelmenu-icon fa fa-fw\" [ngClass]=\"{'fa-caret-right':!isActive(child),'fa-caret-down':isActive(child)}\" *ngIf=\"child.items\"></span>\n                    <span class=\"ui-menuitem-icon fa fa-fw\" [ngClass]=\"child.icon\" *ngIf=\"child.icon\"></span>\n                    <span class=\"ui-menuitem-text\">{{child.label}}</span>\n                </a>\n                <p-panelMenuSub [item]=\"child\" [expanded]=\"isActive(child)\" *ngIf=\"child.items\"></p-panelMenuSub>\n            </li>\n        </ul>\n    ",
             directives: [PanelMenuSub]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location])
+        __metadata('design:paramtypes', [router_1.Router])
     ], PanelMenuSub);
     return PanelMenuSub;
 }());
