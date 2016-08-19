@@ -18,7 +18,8 @@ var webpackConfig = {
     new webpack.optimize.CommonsChunkPlugin({name: ['app', 'vendor', 'polyfills'], minChunks: Infinity}),
     new webpack.DefinePlugin({
       'process.env': {
-        'POKERTRACKER_URL': JSON.stringify(process.env.POKERTRACKER_URL)
+        'POKERTRACKER_COMMAND_URL': JSON.stringify(process.env.POKERTRACKER_COMMAND_URL),
+        'POKERTRACKER_QUERY_URL': JSON.stringify(process.env.POKERTRACKER_QUERY_URL)
       }
     })
   ],
